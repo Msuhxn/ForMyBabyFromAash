@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yay!</title>
+    <link rel="stylesheet" href="yes_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="hearts-container">
+        <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+        <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+    </div>
+
+    <div class="container">
+        
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="back"></div>
+                <div class="letter">
+                    <p class="letter-text">Happy Valentine Cutie.<br>Now go to my room 😉❤️</p>
+                </div>
+                <div class="front"></div>
+                <div class="flap"></div>
+            </div>
+            <p class="instruction" id="tap-text">Tap to open! 💌</p>
+        </div>
+
+        <p class="tiny-text">Awwwwwww!!</p>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const wrapper = document.querySelector('.envelope-wrapper');
+            const tapText = document.getElementById('tap-text');
+            
+            // Add the 'open' class to trigger the CSS animation
+            wrapper.classList.add('open');
+            
+            // Hide the "Tap to open" text after clicking
+            tapText.style.opacity = "0";
+        }
+    </script>
+</body>
+</html>
