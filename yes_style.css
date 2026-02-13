@@ -1,0 +1,200 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    background-color: #f9e3e3;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Envelope Design --- */
+.envelope-wrapper {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    margin-top: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-5px); /* Little hover bounce */
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+}
+
+/* Back of the envelope */
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff4d6d;
+    border-radius: 5px;
+    z-index: 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* The actual letter inside */
+.letter {
+    position: absolute;
+    bottom: 5px;
+    left: 5%;
+    width: 90%;
+    height: 95%;
+    background: #fffafa;
+    z-index: 1; /* Sits inside the envelope */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: flex-start; /* Keeps text at the top so it's readable when sticking out */
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Waits for flap to open (0.4s) before sliding up */
+    transition: transform 0.6s ease 0.4s; 
+}
+
+.letter-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    color: #d32f2f;
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.3;
+}
+
+/* Front side flaps (bottom and sides) */
+.front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 110px 160px;
+    border-color: transparent #ff758c #ff6b6b #ff758c;
+    z-index: 2;
+}
+
+/* Top opening flap */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 110px 160px;
+    border-color: #ff3355 transparent transparent transparent;
+    z-index: 3;
+    transform-origin: top;
+    transition: transform 0.4s ease;
+}
+
+/* --- Open Animation Logic --- */
+/* When clicked, rotate flap 180deg */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 0; /* Drops behind the letter once opened */
+}
+
+/* When clicked, slide letter up by 140px */
+.envelope-wrapper.open .letter {
+    transform: translateY(-140px);
+}
+
+/* "Tap to open" instruction text */
+.instruction {
+    font-family: 'Nunito', sans-serif;
+    color: #888;
+    margin-top: 30px;
+    font-size: 1.1em;
+    animation: pulse 2s infinite;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+/* The footer text */
+.tiny-text {
+    font-size: 10px;
+    color: #aaa;
+    margin-top: 60px;
+    letter-spacing: 2px;
+}
+
+/* --- Floating Hearts Animation (From Index) --- */
+.hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.heart {
+    background-color: #ffb7b2;
+    display: inline-block;
+    height: 30px;
+    margin: 0 10px;
+    position: relative;
+    transform: rotate(-45deg);
+    width: 30px;
+    position: absolute;
+    bottom: -100px;
+    animation: float 6s ease-in infinite;
+    opacity: 0.6;
+}
+
+.heart:before, .heart:after {
+    content: "";
+    background-color: #ffb7b2;
+    border-radius: 50%;
+    height: 30px;
+    position: absolute;
+    width: 30px;
+}
+
+.heart:before { top: -15px; left: 0; }
+.heart:after { left: 15px; top: 0; }
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(-45deg) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(-45deg) scale(1.2); opacity: 0; }
+}
+
+/* Randomize hearts */
+.heart:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; background-color: #ff9aa2; }
+.heart:nth-child(1):before, .heart:nth-child(1):after { background-color: #ff9aa2; }
+.heart:nth-child(2) { left: 30%; animation-duration: 12s; animation-delay: 2s; background-color: #ffb7b2; }
+.heart:nth-child(2):before, .heart:nth-child(2):after { background-color: #ffb7b2; }
+.heart:nth-child(3) { left: 50%; animation-duration: 10s; animation-delay: 4s; background-color: #ffdac1; }
+.heart:nth-child(3):before, .heart:nth-child(3):after { background-color: #ffdac1; }
+.heart:nth-child(4) { left: 70%; animation-duration: 7s; animation-delay: 1s; background-color: #e2f0cb; }
+.heart:nth-child(4):before, .heart:nth-child(4):after { background-color: #e2f0cb; }
+.heart:nth-child(5) { left: 90%; animation-duration: 9s; animation-delay: 3s; background-color: #b5ead7; }
+.heart:nth-child(5):before, .heart:nth-child(5):after { background-color: #b5ead7; }
